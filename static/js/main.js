@@ -3,9 +3,6 @@ var counter = 0
 
 
 $(document).ready(function(){
-
-
-
   map = new GMaps({
     div: '#map',
     lat: -12.043333,
@@ -20,7 +17,7 @@ $(document).ready(function(){
 
     var template = $('#edit_marker_template').text();
     var content = template.replace(/{{index}}/g, index).replace(/{{lat}}/g, lat).replace(/{{lng}}/g, lng);
-    //$('#container img').each(function(el,idx){ idx.remove(); });
+    $('#container img').each(function(el,idx){ idx.remove(); });
     knowledge(lat,lng); 
       
     
@@ -82,8 +79,8 @@ function getFacebookData (lat,lng) {
                $.each(datos.data, function(a,item){
                 $.getJSON('https://graph.facebook.com/fql?q=select owner,link,src,created from photo where owner="'+item.page_id+'"+limit+100+&access_token='+str+'&callback=?', function(datosfp,textStatusfp){
                    $.each(datosfp.data, function(a,its){
-                    var box = $('<div class="box size11"><img src="'+its.src+'" class="facebook"></div>')
-                    $('#container').append(box).nested('append',box)
+                    var box = $('<img width="300" src="'+its.src+'" class="facebook">')
+                    $('#container').append(box)
                    });
                    counter++;
               });
@@ -170,12 +167,12 @@ function knowledge(lat,lng){
                         for (var k = 0; k < group_items.length; k++) {
                             var picture = group_items[k].url
                             var size =  Math.ceil( Math.random()*8 ).toString() +  Math.ceil( Math.random()*8 ).toString()
-                            var box = $("<div><img width='"+size+"' class='foursquare'></div>")
-                            box.children("img").attr("src",picture)
+                            var box = $("<img width='"+300+"' class='foursquare'>")
+                            box.attr("src",picture)
 
                             box.addClass('box' );
 
-                          $('#container').append(box).nested('append',box)
+                          $('#container').append(box)
 
                         }
                     };
